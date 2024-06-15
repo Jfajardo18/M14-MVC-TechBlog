@@ -11,4 +11,6 @@ const sequelize = process.env.JAWSDB_URL ? new Sequelize(process.env.JAWSDB_URL)
     host: dbHost,
 });
 
+console.log('Seqquelize instance: ', sequelize);
+
 module.exports = sequelize;

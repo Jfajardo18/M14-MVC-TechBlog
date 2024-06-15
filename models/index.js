@@ -1,7 +1,16 @@
+const { Sequelize } = require('sequelize');
+const sequelize = require('../config/connection');
+
 const User = require('./User');
 const Blog = require('./Blog');
 const Comment = require('./Comment');
 
+// Initialize models
+User.init(sequelize);
+Blog.init(sequelize);
+Comment.init(sequelize);
+
+// Define associations
 User.hasMany(Blog, {
     foreignKey: 'user_id',
     onDelete: 'CASCADE'
