@@ -1,0 +1,92 @@
+<style>
+    main {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4; /* Light gray background for the body */
+        margin: 0;
+        padding: 20px;
+    }
+
+    .blogBox {
+        background-color: #ffffff; /* White background for each blog box */
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for each blog box */
+    }
+
+    .headerRow {
+        border-bottom: 2px solid #eee; /* Light line to separate header from content */
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .blogTitle {
+        color: #333; /* Dark color for the title */
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blogTitle:hover {
+        color: #0056b3; /* Change color on hover for links */
+        text-decoration: none; /* No underline to keep it clean */
+    }
+
+    .blogCreate {
+        color: #666; /* Dark gray for the creation info */
+        font-size: 0.9rem; /* Smaller font size for metadata */
+        text-align: right; /* Align to the right side of the column */
+    }
+
+    .blogDesc {
+        padding-top: 10px;
+    }
+
+    .blogDescMain {
+        font-size: 1rem; /* Regular font size for description */
+        color: #555; /* Medium gray for the description text */
+        line-height: 1.6; /* Increase line height for readability */
+    }
+
+    @media (max-width: 768px) {
+        .blogCreate {
+            text-align: left; /* Align left on smaller screens */
+            margin-top: 10px;
+        }
+
+        .headerRow {
+            border-bottom: none; /* Remove the border on smaller screens */
+        }
+    }
+</style>
+
+{{#each blogs as |blog|}}
+
+  <div class="row">
+
+    <div class="container blogBox">
+			<div class="row  justify-content-center headerRow">
+      <div class="col-8">
+        <h2>
+          <a class="blogTitle text-uppercase" href="/blog/{{blog.id}}">{{blog.title}}</a>
+        </h2>
+      </div>
+
+      <div class="col-4">
+        <p class="blogCreate text-right">Created by
+          {{blog.user.username}}
+          on
+          {{format_date blog.date_created}}
+        </p>
+      </div>
+			</div>
+    <div class="blogDesc">
+      <p class="text-center blogDescMain">
+        {{blog.description}}
+      </p>
+    </div>
+    </div>
+
+  </div>
+
+{{/each}}

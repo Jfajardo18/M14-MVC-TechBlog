@@ -1,0 +1,162 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+            crossorigin="anonymous"
+    />
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4; /* Adjust the background color to match your design */
+        }
+
+        .navbar {
+            background-color: #6C757D; /* Dark gray background */
+            padding: 0.5rem 1rem; /* Adjust the padding to match the spacing in your image */
+        }
+
+        .nav-link, .navbar-brand {
+            color: #fff; /* This is for a white text */
+            margin-right: 1rem; /* Spacing between nav items */
+        }
+
+        .nav-link:hover, .navbar-brand:hover {
+            color: #dcdcdc; /* Lighter gray on hover for better UI */
+        }
+
+        .nav-title {
+            font-size: 1.5em; /* Larger text for the blog title */
+            font-weight: bold;
+        }
+
+        .navbar .container-fluid {
+            display: flex;
+            justify-content: space-between; /* Align nav items to each side */
+            align-items: center; /* Center items vertically */
+        }
+
+        #logout {
+            background: none;
+            border: none;
+            color: #fff; /* White text for the logout button */
+            padding: 0.25rem 0.5rem; /* Padding to match other nav items */
+            margin: 0 1rem; /* Right margin for spacing */
+            cursor: pointer;
+        }
+
+        #logout:hover {
+            text-decoration: underline; /* Underline on hover for a button-like appearance */
+        }
+
+        /* Additional styles for main content and footer */
+        main.container {
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        footer {
+            background-color: #6C757D; /* Match the navbar */
+            color: #fff; /* White text for footer */
+            text-align: center;
+            padding: 0.5rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+<div class="flex-column justify-space-around">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid navBack">
+            <a class="navbar-brand navTitle" href="/">The Tech Blog</a>
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    {{#if logged_in}}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                        </li>
+
+                        {{! need to add css }}
+                        <li class="nav-item">
+                            <button class="no-button" id="logout">Logout</button>
+                        </li>
+
+                    {{else}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Login</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signUp">Sign Up</a>
+                        </li>
+                    {{/if}}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {{{body}}}
+    </main>
+    <footer>
+    </footer>
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"
+></script>
+
+{{#if logged_in}}
+    <script>
+        const logout = async () => {
+            const response = await fetch('/api/users/logout', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+            });
+
+            if (response.ok) {
+                document.location.replace('/');
+            } else {
+                alert(response.statusText);
+            }
+        };
+
+        document.querySelector('#logout').addEventListener('click', logout);
+
+    </script>
+{{/if}}
+</body>
+
+</html>
